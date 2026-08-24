@@ -14,8 +14,8 @@
 
 <header class="header"><div class="wrap nav">
 <a href="#inicio"><img class="logo" src="/assets/logo-delltech.webp" alt="DellTech Alienware"></a>
-<nav class="links"><a href="#problemas">Qué le pasa</a><a href="#datos">Tus datos</a><a href="#recogida">Recogida</a><a href="#cita">Pedir cita</a><a href="#contacto">Contacto</a><a class="navcall" href="tel:+34910053143">Atención Telefónica 24 horas 365 días</a></nav>
-<button class="menu-btn">Menú</button>
+<nav class="links" id="nav-links"><a href="#problemas">Qué le pasa</a><a href="#datos">Tus datos</a><a href="#recogida">Recogida</a><a href="#cita">Pedir cita</a><a href="#contacto">Contacto</a><a class="navcall" href="tel:+34910053143">Atención Telefónica 24 horas 365 días</a></nav>
+<button class="menu-btn" aria-expanded="false" aria-controls="nav-links">Menú</button>
 </div></header>
 
 <main>
@@ -112,6 +112,13 @@ createChat({
 </script>
 
 <script>
+const menuBtn=document.querySelector('.menu-btn'),navLinks=document.getElementById('nav-links');
+menuBtn?.addEventListener('click',()=>{
+ const open=navLinks.classList.toggle('open');
+ menuBtn.setAttribute('aria-expanded',String(open));
+});
+navLinks?.addEventListener('click',(e)=>{if(e.target.tagName==='A'){navLinks.classList.remove('open');menuBtn.setAttribute('aria-expanded','false')}});
+
 const form=document.getElementById('contact-form');
 const statusEl=document.getElementById('form-status');
 form.addEventListener('submit',async(e)=>{

@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-Disallow: /api/
 Sitemap: https://informaticosmoncloa.com.es/sitemap.xml

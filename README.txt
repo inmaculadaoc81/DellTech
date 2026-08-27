@@ -17,15 +17,32 @@ Google Analytics:
 G-3JCBHJ8DCD
 
 REVISIÓN (fixes aplicados):
-- Ya tenía menú móvil funcional, colisión del chatbot corregida,
-  schema.org, sección SEO y banner de cookies (ya corregido) de
-  commits anteriores; no se ha tocado nada de eso.
+- Ya tenía menú móvil funcional, colisión del chatbot corregida y
+  banner de cookies (ya corregido) de commits anteriores; no se ha
+  tocado nada de eso.
 - Botón de teléfono del menú (.navcall): acortado a solo el número (iba
   a partirse en dos líneas dentro de la píldora, mismo problema visto
   en RowentaTech/XiaomiTech); añadido white-space:nowrap.
 - Dominio (informaticosmoncloa.com.es) verificado: no coincide con
   ningún otro repositorio de la familia (no confundir con
   OrdenadoresMoncloa, que usa asusplace.com.es).
+
+REVISIÓN ADICIONAL (esta pasada):
+- H1 no seguía la regla final de la familia: era largo (23 palabras) y
+  terminaba en planteamiento abierto ("y qué pasará con tus
+  archivos"), sin ser una frase 100% afirmativa. Reescrito: "Tu Dell
+  no responde. Revisamos el equipo y tus datos." (10 palabras).
+- BUG REAL — Schema.org: pese a lo que indicaba este mismo README (y
+  el README heredado por InformáticosExpress, el rebrand de este
+  repositorio), no existía ningún bloque schema.org en el HTML real.
+  Añadido LocalBusiness completo (nombre, teléfono, dirección,
+  areaServed, sameAs con Google Business y YouTube).
+- BUG REAL — Sección SEO: tampoco existía pese a lo indicado; añadida
+  sección "Guía" (id="guia", enlazada en el menú) con contenido propio
+  sobre averías habituales en Dell/Alienware.
+- BUG REAL — el chat n8n no tenía borde blanco en el botón flotante
+  (mismo patrón encontrado en TaurusMyCook); añadido
+  border:1px solid #fff!important.
 
 REDIRECCIÓN DE URLS ANTIGUAS:
 Este sitio era antes multipágina (tenía /modelos/..., eliminados en

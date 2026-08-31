@@ -49,3 +49,21 @@ Este sitio era antes multipágina (tenía /modelos/..., eliminados en
 commits anteriores al pasar a one-page). Añadido middleware.mjs:
 cualquier URL que no sea "/" redirige (301) a la home. Añadida la
 dependencia "@vercel/functions" en package.json.
+
+REVISIÓN ADICIONAL (checklist unificado de la familia, a petición del cliente):
+- BUG REAL — dos textos decorativos gigantes sin reducción de tamaño
+  en móvil/tablet (mismo patrón que MedionTech/AsusTech/BoschTech/
+  ThermomixTech): ".problems:after" ("ALIENWARE", 160px) y
+  ".data-art:before" ("DATA", 120px). Añadida reducción en tablet
+  (100px/80px) y móvil (60px/50px).
+- BUG REAL — el formulario no tenía ninguna casilla de consentimiento
+  de política de privacidad. Añadida, con enlace a
+  https://kelatos.com/privacy-policy/ en azul y subrayado.
+- Añadida franja de aviso de servicio técnico independiente debajo
+  del menú (no existía).
+- Añadido "Sábados, domingos y días festivos estamos cerrados" debajo
+  del horario.
+- Botón "Atención Telefónica..." sin icono, a diferencia del de
+  WhatsApp. Añadido.
+- Formulario verificado: fetch a /api/contacto coincide con
+  api/contacto.js; conexión correcta.

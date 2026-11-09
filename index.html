@@ -107,7 +107,7 @@ gtag('config','G-3JCBHJ8DCD');
 </div></section>
 
 <section id="contacto"><div class="wrap contact-grid"><div><div class="kicker">Cuéntanos qué ocurre</div><h2 class="title">¿Cuánto tiempo necesitas estar sin tu Dell?</h2><p class="lead">Explícanos qué hace, qué información necesitas conservar y para cuándo necesitas volver a usarlo.</p><p><strong>Teléfono:</strong> <a href="tel:+34910053143">+34 910 05 31 43</a></p></div>
-<div><form id="contact-form"><input name="nombre" placeholder="Nombre" required><input name="telefono" placeholder="Teléfono" required><input name="email" type="email" placeholder="Email" required><input name="equipo" placeholder="Modelo Dell o Alienware, si lo sabes" required><textarea class="full" name="mensaje" placeholder="¿Qué le ocurre? ¿Qué información necesitas conservar? ¿Para cuándo necesitas el equipo?" required></textarea><label class="full" style="font-size:14px"><input type="checkbox" required style="width:auto;margin-right:8px"> Acepto la <a class="privacy-link" href="https://kelatos.com/privacy-policy/" target="_blank" rel="noopener">política de privacidad</a>.</label><button class="submit full" type="submit">Enviar consulta</button><p id="form-status" class="full"></p></form></div>
+<div><form id="contact-form"><input type="text" name="website" autocomplete="off" tabindex="-1" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0" value=""><input name="nombre" placeholder="Nombre" required><input name="telefono" placeholder="Teléfono" required><input name="email" type="email" placeholder="Email" required><input name="equipo" placeholder="Modelo Dell o Alienware, si lo sabes" required><textarea class="full" name="mensaje" placeholder="¿Qué le ocurre? ¿Qué información necesitas conservar? ¿Para cuándo necesitas el equipo?" required></textarea><label class="full" style="font-size:14px"><input type="checkbox" required style="width:auto;margin-right:8px"> Acepto la <a class="privacy-link" href="https://kelatos.com/privacy-policy/" target="_blank" rel="noopener">política de privacidad</a>.</label><button class="submit full" type="submit">Enviar consulta</button><p id="form-status" class="full"></p></form></div>
 </div>
 <div class="wrap" style="margin-top:55px"><iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2890.398083402149!2d-3.7114464!3d40.4377011!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd42296649b96e13%3A0x22d50a1dbc0bea1d!2sDellTech%20Alienware%20Servicio%20T%C3%A9cnico%20de%20Ordenadores%20Dell!5e1!3m2!1ses-419!2ses!4v1786639348854!5m2!1ses-419!2ses" loading="lazy"></iframe></div>
 </section>
@@ -139,10 +139,11 @@ navLinks?.addEventListener('click',(e)=>{if(e.target.tagName==='A'){navLinks.cla
 
 const form=document.getElementById('contact-form');
 const statusEl=document.getElementById('form-status');
+const formLoadedAt=Date.now();
 form.addEventListener('submit',async(e)=>{
  e.preventDefault();const btn=form.querySelector('button[type=submit]');btn.disabled=true;statusEl.textContent='Enviando...';
  try{
-  const r=await fetch('/api/contacto',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.fromEntries(new FormData(form).entries()))});
+  const r=await fetch('/api/contacto',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.assign(Object.fromEntries(new FormData(form).entries()),{ts:formLoadedAt}))});
   const d=await r.json().catch(()=>({}));if(!r.ok||!d.ok)throw new Error(d.code||'SEND_FAILED');
   statusEl.textContent='Consulta enviada correctamente.';statusEl.style.color='#18743a';form.reset();
  }catch(err){console.error(err);statusEl.textContent='No se pudo enviar. Puedes contactar por teléfono o WhatsApp.';statusEl.style.color='#b72f2f';}

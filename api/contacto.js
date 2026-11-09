@@ -1,5 +1,6 @@
 const nodemailer=require("./_correo.js");
 const clean=(v,max=4000)=>String(v??"").replace(/[<>]/g,"").trim().slice(0,max);
+const EMAIL_RE=/^[^\s@"(),:;<>[\]\\]+@[^\s@"(),:;<>[\]\\]+\.[a-z]{2,}$/i;
 
 module.exports=async(req,res)=>{
  if(req.method==="GET"){
@@ -12,8 +13,13 @@ module.exports=async(req,res)=>{
   const missing=required.filter(k=>!process.env[k]);
   if(missing.length)return res.status(500).json({ok:false,code:"MISSING_SMTP_ENV",missing});
   const b=req.body||{};
+  if(clean(b.website))return res.status(200).json({ok:true});
+  const ts=Number(b.ts);
+  if(!ts||Date.now()-ts<2000)return res.status(200).json({ok:true});
+
   const nombre=clean(b.nombre,120),telefono=clean(b.telefono,60),email=clean(b.email,180),equipo=clean(b.equipo,180),mensaje=clean(b.mensaje,4000);
   if(!nombre||!telefono||!email||!equipo||!mensaje)return res.status(400).json({ok:false,code:"INVALID_FORM_DATA"});
+  if(!EMAIL_RE.test(email))return res.status(400).json({ok:false,code:"INVALID_EMAIL"});
   const port=Number(process.env.SMTP_PORT||465);
   const secure=String(process.env.SMTP_SECURE??(port===465?"true":"false"))==="true";
   const transporter=nodemailer.createTransport({host:process.env.SMTP_HOST,port,secure,auth:{user:process.env.SMTP_USER,pass:process.env.SMTP_PASS}});
